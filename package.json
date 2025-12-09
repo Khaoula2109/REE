@@ -1,0 +1,33 @@
+{
+  "name": "ree-meter-reading-system",
+  "version": "1.0.0",
+  "description": "REE (Rabat Energie & Eau) - Meter Reading Management System",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "install:all": "npm install && npm install --workspace=backend && npm install --workspace=frontend",
+    "dev:backend": "npm run dev --workspace=backend",
+    "dev:frontend": "npm run dev --workspace=frontend",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "build:backend": "npm run build --workspace=backend",
+    "build:frontend": "npm run build --workspace=frontend",
+    "build": "npm run build:backend && npm run build:frontend",
+    "start:backend": "npm run start --workspace=backend",
+    "start:frontend": "npm run preview --workspace=frontend"
+  },
+  "keywords": [
+    "meter-reading",
+    "water",
+    "electricity",
+    "management",
+    "backoffice"
+  ],
+  "author": "REE",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
