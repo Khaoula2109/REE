@@ -18,7 +18,9 @@ export interface MeterAttributes {
   updatedAt?: Date;
 }
 
-export interface MeterCreationAttributes extends Omit<MeterAttributes, 'id' | 'createdAt' | 'updatedAt'> {}
+export interface MeterCreationAttributes extends Omit<MeterAttributes, 'id' | 'meterId' | 'createdAt' | 'updatedAt'> {
+  meterId?: string;
+}
 
 class Meter extends Model<MeterAttributes, MeterCreationAttributes> implements MeterAttributes {
   public id!: number;
