@@ -256,7 +256,7 @@ const MetersList = () => {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm font-medium text-gray-900">
-                        {meter.currentIndex.toFixed(2)}
+                        {Number(meter.currentIndex).toFixed(2)}
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">

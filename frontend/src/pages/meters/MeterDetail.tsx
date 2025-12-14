@@ -131,7 +131,7 @@ const MeterDetail = () => {
                 <div>
                   <p className="text-sm font-medium text-gray-500">Index Actuel</p>
                   <p className="text-2xl font-bold text-primary-900 mt-1">
-                    {meter.currentIndex.toFixed(2)}
+                    {Number(meter.currentIndex).toFixed(2)}
                   </p>
                   <p className="text-xs text-gray-500 mt-0.5">
                     {meter.meterType === MeterType.WATER ? 'm³' : 'kWh'}
@@ -287,17 +287,17 @@ const MeterDetail = () => {
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="text-sm text-gray-900">
-                            {reading.previousIndex.toFixed(2)}
+                            {Number(reading.previousIndex).toFixed(2)}
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="text-sm text-gray-900">
-                            {reading.currentIndex.toFixed(2)}
+                            {Number(reading.currentIndex).toFixed(2)}
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="text-sm font-semibold text-primary-600">
-                            {reading.consumption.toFixed(2)}{' '}
+                            {Number(reading.consumption).toFixed(2)}{' '}
                             {meter.meterType === MeterType.WATER ? 'm³' : 'kWh'}
                           </div>
                         </td>
