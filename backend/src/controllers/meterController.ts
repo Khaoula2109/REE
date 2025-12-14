@@ -69,7 +69,7 @@ export const getAllMeters = async (req: Request, res: Response): Promise<void> =
     });
 
     res.json({
-      meters,
+      data: meters,
       pagination: {
         total: count,
         page: Number(page),

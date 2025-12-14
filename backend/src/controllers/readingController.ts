@@ -96,7 +96,7 @@ export const getAllReadings = async (req: Request, res: Response): Promise<void>
     });
 
     res.json({
-      readings,
+      data: readings,
       pagination: {
         total: count,
         page: Number(page),
