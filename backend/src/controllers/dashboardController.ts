@@ -235,7 +235,7 @@ export const getConsumptionEvolution = async (req: Request, res: Response): Prom
 /**
  * Get overall statistics for dashboard
  */
-export const getOverallStats = async (req: Request, res: Response): Promise<void> => {
+export const getOverallStats = async (_req: Request, res: Response): Promise<void> => {
   try {
     const today = new Date();
     const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);

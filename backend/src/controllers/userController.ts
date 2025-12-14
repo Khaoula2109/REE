@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import User, { UserRole } from '../models/User';
 import { generateRandomPassword } from '../utils/passwordGenerator';
 import { sendEmail } from '../config/email';
-import { Op } from 'sequelize';
 
 /**
  * Get all users (SUPERADMIN only)

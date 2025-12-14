@@ -23,7 +23,7 @@ const createAdmin = async () => {
     }
 
     // Create admin
-    const admin = await User.create({
+    await User.create({
       lastName: 'Admin',
       firstName: 'Super',
       email: 'admin@ree.ma',

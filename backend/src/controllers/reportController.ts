@@ -6,7 +6,6 @@ import Reading from '../models/Reading';
 import Meter, { MeterType } from '../models/Meter';
 import Agent from '../models/Agent';
 import District from '../models/District';
-import Address from '../models/Address';
 
 /**
  * Generate Monthly Readings Report (PDF)

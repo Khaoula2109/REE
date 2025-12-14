@@ -20,7 +20,7 @@ const seedDatabase = async () => {
 
     // Create Users
     console.log('Creating users...');
-    const superadmin = await User.create({
+    await User.create({
       lastName: 'Admin',
       firstName: 'Super',
       email: 'admin@ree.ma',
@@ -29,7 +29,7 @@ const seedDatabase = async () => {
       mustChangePassword: false,
     });
 
-    const user1 = await User.create({
+    await User.create({
       lastName: 'Bennani',
       firstName: 'Mohammed',
       email: 'mbennani@ree.ma',
@@ -38,7 +38,7 @@ const seedDatabase = async () => {
       mustChangePassword: false,
     });
 
-    const user2 = await User.create({
+    await User.create({
       lastName: 'El Amrani',
       firstName: 'Fatima',
       email: 'felamrani@ree.ma',
