@@ -50,7 +50,7 @@ Meter.init(
     },
     meterId: {
       type: DataTypes.STRING(9),
-      allowNull: false,
+      allowNull: true,
       unique: true,
     },
     meterType: {
@@ -79,14 +79,11 @@ Meter.init(
     sequelize,
     tableName: 'meters',
     hooks: {
-      beforeCreate: async (meter: Meter) => {
+      afterCreate: async (meter: Meter) => {
         if (!meter.meterId) {
-          // Get the next ID to generate meter ID
-          const lastMeter = await Meter.findOne({
-            order: [['id', 'DESC']],
-          });
-          const nextId = lastMeter ? lastMeter.id + 1 : 1;
-          meter.meterId = Meter.generateMeterId(nextId);
+          // Generate meterId based on the auto-incremented id
+          const generatedMeterId = Meter.generateMeterId(meter.id);
+          await meter.update({ meterId: generatedMeterId }, { hooks: false });
         }
       },
     },
