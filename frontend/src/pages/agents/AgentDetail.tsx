@@ -229,7 +229,7 @@ const AgentDetail = () => {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <StatCard
                 title="Relevés Moyens/Jour"
-                value={performance.avgReadingsPerDay.toFixed(1)}
+                value={Number(performance.avgReadingsPerDay).toFixed(1)}
                 icon={TrendingUp}
                 color="primary"
               />
@@ -332,7 +332,7 @@ const AgentDetail = () => {
                     <p className="text-sm text-gray-500">Performance actuelle</p>
                     <div className="flex items-center gap-2">
                       <p className="text-lg font-semibold text-gray-900">
-                        {performance.avgReadingsPerDay.toFixed(1)} relevés/jour
+                        {Number(performance.avgReadingsPerDay).toFixed(1)} relevés/jour
                       </p>
                       <Badge
                         variant={

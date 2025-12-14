@@ -184,7 +184,7 @@ const ReadingDetail = () => {
             <div>
               <p className="text-sm font-medium text-gray-500">Index Précédent</p>
               <p className="text-2xl font-semibold text-gray-900 mt-1">
-                {reading.previousIndex.toFixed(2)}
+                {Number(reading.previousIndex).toFixed(2)}
               </p>
             </div>
 
@@ -192,7 +192,7 @@ const ReadingDetail = () => {
             <div>
               <p className="text-sm font-medium text-gray-500">Index Actuel</p>
               <p className="text-2xl font-semibold text-gray-900 mt-1">
-                {reading.currentIndex.toFixed(2)}
+                {Number(reading.currentIndex).toFixed(2)}
               </p>
             </div>
 
@@ -200,7 +200,7 @@ const ReadingDetail = () => {
             <div className="bg-gradient-to-br from-primary-50 to-accent-50 rounded-lg p-4 border-2 border-primary-200">
               <p className="text-sm font-medium text-primary-700">Consommation Calculée</p>
               <p className="text-3xl font-bold text-primary-900 mt-2">
-                {reading.consumption.toFixed(2)}
+                {Number(reading.consumption).toFixed(2)}
               </p>
               <p className="text-sm text-primary-600 mt-1">
                 {reading.meter?.meterType === MeterType.WATER ? 'm³' : 'kWh'}

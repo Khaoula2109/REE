@@ -130,7 +130,7 @@ const Dashboard = () => {
         />
         <StatCard
           title="Consommation Moy."
-          value={stats?.avgConsumption.toFixed(2) || 0}
+          value={stats?.avgConsumption ? Number(stats.avgConsumption).toFixed(2) : 0 || 0}
           icon={TrendingUp}
           color="warning"
         />
@@ -371,7 +371,7 @@ const Dashboard = () => {
                         district.coverageRate
                       )}`}
                     >
-                      {district.coverageRate.toFixed(2)}%
+                      {Number(district.coverageRate).toFixed(2)}%
                     </span>
                   </td>
                 </tr>

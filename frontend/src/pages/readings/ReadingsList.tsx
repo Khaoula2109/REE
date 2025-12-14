@@ -293,7 +293,7 @@ const ReadingsList = () => {
                       </Badge>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900">
-                      {reading.consumption.toFixed(2)}{' '}
+                      {Number(reading.consumption).toFixed(2)}{' '}
                       {reading.meter?.meterType === MeterType.WATER ? 'm³' : 'kWh'}
                     </td>
                   </motion.tr>
