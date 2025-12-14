@@ -3,6 +3,7 @@ import User from '../models/User';
 import { generateTokens, verifyRefreshToken } from '../utils/jwt';
 import { generateRandomPassword, validatePasswordComplexity } from '../utils/passwordGenerator';
 import { sendEmail } from '../config/email';
+import { logLoginAttempt } from '../utils/loginLogger';
 
 /**
  * Login user
@@ -15,6 +16,13 @@ export const login = async (req: Request, res: Response): Promise<void> => {
     const user = await User.findOne({ where: { email } });
 
     if (!user) {
+      // Log failed attempt - user not found
+      await logLoginAttempt({
+        email,
+        success: false,
+        failureReason: 'User not found',
+        req,
+      });
       res.status(401).json({ error: 'Email ou mot de passe incorrect' });
       return;
     }
@@ -23,6 +31,14 @@ export const login = async (req: Request, res: Response): Promise<void> => {
     const isPasswordValid = await user.checkPassword(password);
 
     if (!isPasswordValid) {
+      // Log failed attempt - invalid password
+      await logLoginAttempt({
+        email,
+        userId: user.id,
+        success: false,
+        failureReason: 'Invalid password',
+        req,
+      });
       res.status(401).json({ error: 'Email ou mot de passe incorrect' });
       return;
     }
@@ -30,6 +46,14 @@ export const login = async (req: Request, res: Response): Promise<void> => {
     // Update last login
     user.lastLogin = new Date();
     await user.save();
+
+    // Log successful login
+    await logLoginAttempt({
+      email,
+      userId: user.id,
+      success: true,
+      req,
+    });
 
     // Generate tokens
     const tokens = generateTokens({
