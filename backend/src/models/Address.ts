@@ -39,6 +39,7 @@ class Address extends Model<AddressAttributes, AddressCreationAttributes> implem
   // Associations
   public readonly district?: District;
   public readonly client?: Client;
+  public readonly meters?: any[];
 
   // Get full address string
   public getFullAddress(): string {
