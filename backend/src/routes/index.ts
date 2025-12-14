@@ -19,7 +19,7 @@ router.use('/meters', meterRoutes);
 router.use('/reports', reportRoutes);
 
 // Health check
-router.get('/health', (req, res) => {
+router.get('/health', (_req, res) => {
   res.json({ status: 'OK', timestamp: new Date() });
 });
 
