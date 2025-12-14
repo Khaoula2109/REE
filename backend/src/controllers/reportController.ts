@@ -34,7 +34,8 @@ export const generateMonthlyReadingsReport = async (req: Request, res: Response)
         },
       ],
       group: ['Agent.district_id', 'district.id'],
-    });
+      raw: true,
+    }) as any[];
 
     // Get readings by district and agent
     const readingsByDistrict = await Reading.findAll({
@@ -119,7 +120,7 @@ export const generateMonthlyReadingsReport = async (req: Request, res: Response)
 
       return {
         districtName: district.districtName,
-        totalAgents: agentInfo ? parseInt(agentInfo.getDataValue('agentCount')) : 0,
+        totalAgents: agentInfo ? parseInt(agentInfo.agentCount) : 0,
         activeAgents: parseInt(district.activeAgents),
         totalReadings: parseInt(district.totalReadings),
         agentDetails: avgPerDay,
