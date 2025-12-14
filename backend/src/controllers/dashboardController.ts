@@ -47,7 +47,7 @@ export const getCoverageRate = async (req: Request, res: Response): Promise<void
       ],
       group: ['District.id'],
       raw: true,
-    });
+    }) as any[];
 
     // Get readings count by district
     const readingsByDistrict = await Reading.findAll({
@@ -72,7 +72,7 @@ export const getCoverageRate = async (req: Request, res: Response): Promise<void
       where: Object.keys(dateFilter).length > 0 ? { readingDate: dateFilter } : {},
       group: ['meter->address.district_id'],
       raw: true,
-    });
+    }) as any[];
 
     // Calculate coverage rate for each district
     const coverageData = districts.map((district: any) => {
@@ -213,7 +213,7 @@ export const getConsumptionEvolution = async (req: Request, res: Response): Prom
       group: ['meter.meter_type', sequelize.fn('DATE_FORMAT', sequelize.col('reading_date'), '%Y-%m')],
       order: [[sequelize.fn('DATE_FORMAT', sequelize.col('reading_date'), '%Y-%m'), 'ASC']],
       raw: true,
-    });
+    }) as any[];
 
     // Format the data
     const formattedData = consumptionData.map((item: any) => ({
@@ -264,7 +264,7 @@ export const getOverallStats = async (_req: Request, res: Response): Promise<voi
         },
       },
       raw: true,
-    });
+    }) as any;
 
     res.json({
       totalMeters,

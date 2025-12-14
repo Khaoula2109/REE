@@ -65,7 +65,7 @@ export const generateMonthlyReadingsReport = async (req: Request, res: Response)
       },
       group: ['agent->district.id'],
       raw: true,
-    });
+    }) as any[];
 
     // Get average readings per agent per day by district
     const avgReadingsByAgent = await Reading.findAll({
@@ -99,7 +99,7 @@ export const generateMonthlyReadingsReport = async (req: Request, res: Response)
       },
       group: ['agent->district.id', 'Reading.agent_id'],
       raw: true,
-    });
+    }) as any[];
 
     // Calculate averages
     const reportData = readingsByDistrict.map((district: any) => {
@@ -222,7 +222,7 @@ export const generateConsumptionReport = async (req: Request, res: Response): Pr
       group: ['meter.meter_type', sequelize.fn('DATE_FORMAT', sequelize.col('reading_date'), '%Y-%m')],
       order: [[sequelize.fn('DATE_FORMAT', sequelize.col('reading_date'), '%Y-%m'), 'ASC']],
       raw: true,
-    });
+    }) as any[];
 
     // Get previous year data for comparison
     const startLastYear = new Date(startDate as string);
@@ -251,7 +251,7 @@ export const generateConsumptionReport = async (req: Request, res: Response): Pr
       },
       group: ['meter.meter_type', sequelize.fn('DATE_FORMAT', sequelize.col('reading_date'), '%Y-%m')],
       raw: true,
-    });
+    }) as any[];
 
     // Generate PDF
     const doc = new PDFDocument({ margin: 50 });
