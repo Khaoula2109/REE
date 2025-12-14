@@ -7,6 +7,7 @@ import agentRoutes from './agentRoutes';
 import meterRoutes from './meterRoutes';
 import reportRoutes from './reportRoutes';
 import districtRoutes from './districtRoutes';
+import billingRoutes from './billingRoutes';
 
 const router = Router();
 
@@ -19,6 +20,7 @@ router.use('/agents', agentRoutes);
 router.use('/meters', meterRoutes);
 router.use('/reports', reportRoutes);
 router.use('/districts', districtRoutes);
+router.use('/billing', billingRoutes);
 
 // Health check
 router.get('/health', (_req, res) => {

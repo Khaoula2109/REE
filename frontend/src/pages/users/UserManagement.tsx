@@ -12,7 +12,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import toast from 'react-hot-toast';
-import { formatDateTime } from '../../lib/utils';
+import { formatDateTime, formatLastName, formatFirstName } from '../../lib/utils';
 
 const userSchema = z.object({
   lastName: z.string().min(1, 'Nom requis'),
@@ -37,6 +37,7 @@ const UserManagement = () => {
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<UserFormData>({
     resolver: zodResolver(userSchema),
@@ -301,11 +302,18 @@ const UserManagement = () => {
       >
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700">Nom</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Nom <span className="text-xs text-gray-500">(sera converti en MAJUSCULES)</span>
+            </label>
             <input
               {...register('lastName')}
               type="text"
-              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+              onChange={(e) => {
+                const formatted = formatLastName(e.target.value);
+                setValue('lastName', formatted);
+              }}
+              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm uppercase"
+              placeholder="Ex: AIT MOHAMED, ES-SERGHINI"
             />
             {errors.lastName && (
               <p className="mt-1 text-sm text-red-600">{errors.lastName.message}</p>
@@ -313,11 +321,18 @@ const UserManagement = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">Prénom</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Prénom <span className="text-xs text-gray-500">(première lettre en majuscule)</span>
+            </label>
             <input
               {...register('firstName')}
               type="text"
+              onChange={(e) => {
+                const formatted = formatFirstName(e.target.value);
+                setValue('firstName', formatted);
+              }}
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+              placeholder="Ex: Mohamed-Amine, Fatima Ezzahra"
             />
             {errors.firstName && (
               <p className="mt-1 text-sm text-red-600">{errors.firstName.message}</p>

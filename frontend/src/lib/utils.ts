@@ -61,3 +61,27 @@ export function downloadFile(blob: Blob, filename: string): void {
   document.body.removeChild(link);
   window.URL.revokeObjectURL(url);
 }
+
+/**
+ * Format last name to uppercase
+ * Ex: "ait Mohamed" → "AIT MOHAMED"
+ */
+export function formatLastName(value: string): string {
+  return value.toUpperCase();
+}
+
+/**
+ * Format first name to proper case (first letter uppercase, rest lowercase)
+ * Handles compound names with hyphens
+ * Ex: "mohamed-amine" → "Mohamed-Amine"
+ * Ex: "fatima ezzahra" → "Fatima Ezzahra"
+ */
+export function formatFirstName(value: string): string {
+  return value
+    .split(/[\s-]/)
+    .map((part) => {
+      if (part.length === 0) return part;
+      return part.charAt(0).toUpperCase() + part.slice(1).toLowerCase();
+    })
+    .join(value.includes('-') ? '-' : ' ');
+}
