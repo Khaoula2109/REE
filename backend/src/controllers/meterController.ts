@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { Op } from 'sequelize';
-import Meter, { MeterType } from '../models/Meter';
+import Meter from '../models/Meter';
 import Address from '../models/Address';
 import District from '../models/District';
 import Client from '../models/Client';

@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import User, { UserRole } from '../models/User';
+import User from '../models/User';
 import { generateTokens, verifyRefreshToken } from '../utils/jwt';
 import { generateRandomPassword, validatePasswordComplexity } from '../utils/passwordGenerator';
 import { sendEmail } from '../config/email';
@@ -189,6 +189,6 @@ export const requestPasswordReset = async (req: Request, res: Response): Promise
 /**
  * Logout (client-side only, just return success)
  */
-export const logout = async (req: Request, res: Response): Promise<void> => {
+export const logout = async (_req: Request, res: Response): Promise<void> => {
   res.json({ message: 'Déconnexion réussie' });
 };
