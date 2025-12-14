@@ -36,7 +36,7 @@ const MeterDetail = () => {
       setIsLoading(true);
       const [meterRes, readingsRes] = await Promise.all([
         axios.get<Meter>(`/meters/${id}`),
-        axios.get<Reading[]>(`/meters/${id}/readings?limit=10`),
+        axios.get<Reading[]>(`/readings/meter/${id}`),
       ]);
       setMeter(meterRes.data);
       setRecentReadings(readingsRes.data);
