@@ -3,10 +3,10 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const JWT_SECRET: string = process.env.JWT_SECRET || 'your-super-secret-jwt-key';
-const JWT_EXPIRES_IN: string = process.env.JWT_EXPIRES_IN || '30m';
-const JWT_REFRESH_SECRET: string = process.env.JWT_REFRESH_SECRET || 'your-super-secret-refresh-key';
-const JWT_REFRESH_EXPIRES_IN: string = process.env.JWT_REFRESH_EXPIRES_IN || '7d';
+const JWT_SECRET = (process.env.JWT_SECRET || 'your-super-secret-jwt-key') as string;
+const JWT_EXPIRES_IN = (process.env.JWT_EXPIRES_IN || '30m') as string;
+const JWT_REFRESH_SECRET = (process.env.JWT_REFRESH_SECRET || 'your-super-secret-refresh-key') as string;
+const JWT_REFRESH_EXPIRES_IN = (process.env.JWT_REFRESH_EXPIRES_IN || '7d') as string;
 
 export interface TokenPayload {
   userId: number;
@@ -24,14 +24,14 @@ export interface TokenResponse {
  * Generate access token
  */
 export const generateAccessToken = (payload: TokenPayload): string => {
-  return jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
+  return jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN } as jwt.SignOptions);
 };
 
 /**
  * Generate refresh token
  */
 export const generateRefreshToken = (payload: TokenPayload): string => {
-  return jwt.sign(payload, JWT_REFRESH_SECRET, { expiresIn: JWT_REFRESH_EXPIRES_IN });
+  return jwt.sign(payload, JWT_REFRESH_SECRET, { expiresIn: JWT_REFRESH_EXPIRES_IN } as jwt.SignOptions);
 };
 
 /**
