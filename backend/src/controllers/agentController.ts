@@ -126,7 +126,7 @@ export const getAgentPerformance = async (req: Request, res: Response): Promise<
       group: [sequelize.fn('DATE', sequelize.col('reading_date'))],
       order: [[sequelize.fn('DATE', sequelize.col('reading_date')), 'ASC']],
       raw: true,
-    });
+    }) as any[];
 
     // Calculate average
     const totalReadings = dailyReadings.reduce((sum: number, day: any) => sum + parseInt(day.count), 0);
