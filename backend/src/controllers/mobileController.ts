@@ -5,7 +5,6 @@ import Address from '../models/Address';
 import District from '../models/District';
 import Client from '../models/Client';
 import Reading from '../models/Reading';
-import sequelize from '../config/database';
 import { Op } from 'sequelize';
 
 /**
@@ -164,16 +163,12 @@ export const createReading = async (req: Request, res: Response): Promise<void> 
       return;
     }
 
-    // Calculate consumption
-    const consumption = newIndex - previousIndex;
-
-    // Create reading
+    // Create reading (consumption will be calculated automatically by beforeCreate hook)
     const reading = await Reading.create({
       meterId,
       agentId,
       previousIndex,
       currentIndex: newIndex,
-      consumption,
       readingDate: readingDate ? new Date(readingDate) : new Date(),
     });
 
