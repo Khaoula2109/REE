@@ -8,6 +8,7 @@ import meterRoutes from './meterRoutes';
 import reportRoutes from './reportRoutes';
 import districtRoutes from './districtRoutes';
 import billingRoutes from './billingRoutes';
+import mobileRoutes from './mobileRoutes';
 
 const router = Router();
 
@@ -21,6 +22,7 @@ router.use('/meters', meterRoutes);
 router.use('/reports', reportRoutes);
 router.use('/districts', districtRoutes);
 router.use('/billing', billingRoutes);
+router.use('/mobile', mobileRoutes);
 
 // Health check
 router.get('/health', (_req, res) => {
