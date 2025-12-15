@@ -22,6 +22,6 @@ router.get('/stats', getBillingStats);
  * @query   startDate (optional) - Start date filter (ISO format)
  * @query   endDate (optional) - End date filter (ISO format)
  */
-router.post('/send', authorize([UserRole.SUPERADMIN, UserRole.USER]), sendToBilling);
+router.post('/send', authorize(UserRole.SUPERADMIN, UserRole.USER), sendToBilling);
 
 export default router;
