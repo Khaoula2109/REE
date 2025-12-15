@@ -14,6 +14,14 @@ import MeterDetail from './pages/meters/MeterDetail';
 import AddMeter from './pages/meters/AddMeter';
 import Reports from './pages/Reports';
 
+// Mobile PWA imports
+import MobileLayout from './components/MobileLayout';
+import MobileLogin from './pages/mobile/MobileLogin';
+import MobileDashboard from './pages/mobile/MobileDashboard';
+import AddressesList from './pages/mobile/AddressesList';
+import ReadingEntry from './pages/mobile/ReadingEntry';
+import MobileHistory from './pages/mobile/MobileHistory';
+
 function App() {
   const { isAuthenticated, user } = useAppSelector((state) => state.auth);
 
@@ -29,6 +37,21 @@ function App() {
 
   return (
     <Routes>
+      {/* Mobile PWA Routes */}
+      <Route
+        path="/mobile/login"
+        element={!isAuthenticated ? <MobileLogin /> : <Navigate to="/mobile" replace />}
+      />
+
+      {isAuthenticated && (
+        <Route path="/mobile" element={<MobileLayout />}>
+          <Route index element={<MobileDashboard />} />
+          <Route path="addresses" element={<AddressesList />} />
+          <Route path="reading" element={<ReadingEntry />} />
+          <Route path="history" element={<MobileHistory />} />
+        </Route>
+      )}
+
       {/* Public routes */}
       <Route
         path="/login"
