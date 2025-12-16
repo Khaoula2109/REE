@@ -9,8 +9,14 @@ beforeAll(async () => {
     // Test database connection
     await sequelize.authenticate();
 
+    // Disable foreign key checks to allow table drops
+    await sequelize.query('SET FOREIGN_KEY_CHECKS = 0');
+
     // Sync database (create tables if they don't exist)
     await sequelize.sync({ force: true });
+
+    // Re-enable foreign key checks
+    await sequelize.query('SET FOREIGN_KEY_CHECKS = 1');
   } catch (error) {
     console.error('Failed to setup test database:', error);
     throw error;
