@@ -15,7 +15,7 @@ export interface ReadingAttributes {
   updatedAt?: Date;
 }
 
-export interface ReadingCreationAttributes extends Omit<ReadingAttributes, 'id' | 'createdAt' | 'updatedAt'> {
+export interface ReadingCreationAttributes extends Omit<ReadingAttributes, 'id' | 'consumption' | 'createdAt' | 'updatedAt'> {
   consumption?: number; // Optional: will be calculated if not provided
 }
 
