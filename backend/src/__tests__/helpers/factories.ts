@@ -154,17 +154,14 @@ export class TestFactory {
       agentId = agent.id;
     }
 
-    const previousIndex = 100;
-    const currentIndex = 150;
-
     return Reading.create({
       meterId,
       agentId,
-      previousIndex,
-      currentIndex,
-      consumption: currentIndex - previousIndex,
+      previousIndex: 100,
+      currentIndex: 150,
       readingDate: new Date(),
       ...overrides,
+      // consumption is auto-calculated by Reading model hook
     });
   }
 
