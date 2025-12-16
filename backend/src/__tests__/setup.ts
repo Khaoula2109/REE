@@ -1,4 +1,13 @@
 import sequelize from '../config/database';
+// Import all models to ensure they're registered with Sequelize
+import '../models/User';
+import '../models/Agent';
+import '../models/District';
+import '../models/Client';
+import '../models/Address';
+import '../models/Meter';
+import '../models/Reading';
+import '../models/LoginLog';
 
 // Setup runs before all tests
 beforeAll(async () => {
