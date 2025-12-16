@@ -1,4 +1,3 @@
-import { faker } from '@faker-js/faker';
 import bcrypt from 'bcryptjs';
 import User from '../../models/User';
 import Agent from '../../models/Agent';
@@ -9,20 +8,24 @@ import Meter from '../../models/Meter';
 import Reading from '../../models/Reading';
 import { UserRole } from '../../models/User';
 import { MeterType } from '../../models/Meter';
+import { AddressType } from '../../models/Address';
+
+let counter = 0;
 
 export class TestFactory {
   /**
    * Create a test user
    */
   static async createUser(overrides: Partial<any> = {}) {
+    counter++;
     const password = await bcrypt.hash('password123', 10);
     return User.create({
-      email: faker.internet.email(),
+      email: `user${counter}@example.com`,
       password,
-      firstName: faker.person.firstName(),
-      lastName: faker.person.lastName().toUpperCase(),
+      firstName: 'Test',
+      lastName: 'USER',
       role: UserRole.USER,
-      isActive: true,
+      mustChangePassword: false,
       ...overrides,
     });
   }
@@ -41,9 +44,10 @@ export class TestFactory {
    * Create a test district
    */
   static async createDistrict(overrides: Partial<any> = {}) {
+    counter++;
     return District.create({
-      name: faker.location.city(),
-      code: faker.string.alphanumeric(5).toUpperCase(),
+      name: `District ${counter}`,
+      code: `DIST${counter}`,
       ...overrides,
     });
   }
@@ -59,14 +63,13 @@ export class TestFactory {
       districtId = district.id;
     }
 
+    counter++;
     return Agent.create({
-      agentId: faker.string.alphanumeric(8).toUpperCase(),
-      firstName: faker.person.firstName(),
-      lastName: faker.person.lastName().toUpperCase(),
-      email: faker.internet.email(),
-      phone: faker.phone.number('+212 6## ## ## ##'),
+      firstName: 'Agent',
+      lastName: `TEST${counter}`,
+      personalPhone: `+212600${String(counter).padStart(6, '0')}`,
+      professionalPhone: `+212601${String(counter).padStart(6, '0')}`,
       districtId,
-      isActive: true,
       ...overrides,
     });
   }
@@ -75,12 +78,13 @@ export class TestFactory {
    * Create a test client
    */
   static async createClient(overrides: Partial<any> = {}) {
+    counter++;
     return Client.create({
-      clientId: faker.string.alphanumeric(10).toUpperCase(),
-      firstName: faker.person.firstName(),
-      lastName: faker.person.lastName().toUpperCase(),
-      email: faker.internet.email(),
-      phone: faker.phone.number('+212 6## ## ## ##'),
+      clientId: `CL${String(counter).padStart(8, '0')}`,
+      firstName: 'Client',
+      lastName: `TEST${counter}`,
+      email: `client${counter}@example.com`,
+      phone: `+212610${String(counter).padStart(6, '0')}`,
       ...overrides,
     });
   }
@@ -102,11 +106,13 @@ export class TestFactory {
       districtId = district.id;
     }
 
+    counter++;
     return Address.create({
-      street: faker.location.street(),
-      number: faker.number.int({ min: 1, max: 999 }).toString(),
-      floor: faker.number.int({ min: 1, max: 10 }).toString(),
-      apartmentNumber: faker.number.int({ min: 1, max: 50 }).toString(),
+      street: `Test Street ${counter}`,
+      number: String(counter),
+      floor: '1',
+      apartmentNumber: String(counter),
+      addressType: AddressType.APARTMENT,
       clientId,
       districtId,
       ...overrides,
@@ -124,16 +130,12 @@ export class TestFactory {
       addressId = address.id;
     }
 
-    const meter = await Meter.create({
+    return Meter.create({
       meterType: MeterType.WATER,
-      currentIndex: faker.number.float({ min: 0, max: 10000, fractionDigits: 2 }),
-      installationDate: faker.date.past({ years: 5 }),
-      isActive: true,
+      currentIndex: 0,
       addressId,
       ...overrides,
     });
-
-    return meter;
   }
 
   /**
@@ -153,12 +155,8 @@ export class TestFactory {
       agentId = agent.id;
     }
 
-    const previousIndex = faker.number.float({ min: 0, max: 5000, fractionDigits: 2 });
-    const currentIndex = faker.number.float({
-      min: previousIndex,
-      max: previousIndex + 1000,
-      fractionDigits: 2
-    });
+    const previousIndex = 100;
+    const currentIndex = 150;
 
     return Reading.create({
       meterId,
@@ -166,7 +164,7 @@ export class TestFactory {
       previousIndex,
       currentIndex,
       consumption: currentIndex - previousIndex,
-      readingDate: faker.date.recent({ days: 30 }),
+      readingDate: new Date(),
       ...overrides,
     });
   }
