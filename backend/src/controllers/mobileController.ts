@@ -163,12 +163,16 @@ export const createReading = async (req: Request, res: Response): Promise<void> 
       return;
     }
 
-    // Create reading (consumption will be calculated automatically by beforeCreate hook)
+    // Calculate consumption manually (beforeCreate hook runs after validation)
+    const consumption = Reading.calculateConsumption(newIndex, previousIndex);
+
+    // Create reading
     const reading = await Reading.create({
       meterId,
       agentId,
       previousIndex,
       currentIndex: newIndex,
+      consumption,
       readingDate: readingDate ? new Date(readingDate) : new Date(),
     });
 
