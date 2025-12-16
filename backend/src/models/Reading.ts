@@ -15,7 +15,9 @@ export interface ReadingAttributes {
   updatedAt?: Date;
 }
 
-export interface ReadingCreationAttributes extends Omit<ReadingAttributes, 'id' | 'consumption' | 'createdAt' | 'updatedAt'> {}
+export interface ReadingCreationAttributes extends Omit<ReadingAttributes, 'id' | 'createdAt' | 'updatedAt'> {
+  consumption?: number; // Optional: will be calculated if not provided
+}
 
 class Reading extends Model<ReadingAttributes, ReadingCreationAttributes> implements ReadingAttributes {
   public id!: number;
@@ -83,8 +85,11 @@ Reading.init(
     sequelize,
     tableName: 'readings',
     hooks: {
-      beforeCreate: (reading: Reading) => {
-        reading.consumption = Reading.calculateConsumption(reading.currentIndex, reading.previousIndex);
+      beforeValidate: (reading: Reading) => {
+        // Calculate consumption if not provided
+        if (reading.consumption === undefined || reading.consumption === null) {
+          reading.consumption = Reading.calculateConsumption(reading.currentIndex, reading.previousIndex);
+        }
       },
       beforeUpdate: (reading: Reading) => {
         if (reading.changed('currentIndex') || reading.changed('previousIndex')) {
