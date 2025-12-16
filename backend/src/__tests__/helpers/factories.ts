@@ -1,4 +1,3 @@
-import bcrypt from 'bcryptjs';
 import User from '../../models/User';
 import Agent from '../../models/Agent';
 import District from '../../models/District';
@@ -18,10 +17,10 @@ export class TestFactory {
    */
   static async createUser(overrides: Partial<any> = {}) {
     counter++;
-    const password = await bcrypt.hash('password123', 10);
+    // Don't hash password manually - let the beforeCreate hook do it
     return User.create({
       email: `user${counter}@example.com`,
-      password,
+      password: 'password123', // Plain text - will be hashed by hook
       firstName: 'Test',
       lastName: 'USER',
       role: UserRole.USER,

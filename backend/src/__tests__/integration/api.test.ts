@@ -1,24 +1,20 @@
 import request from 'supertest';
 import app from '../../app';
 import { TestFactory } from '../helpers/factories';
-import bcrypt from 'bcryptjs';
 
 describe('API Integration Tests', () => {
   describe('Authentication', () => {
     it('should login with valid credentials', async () => {
-      const password = 'password123';
-      const hashedPassword = await bcrypt.hash(password, 10);
-
       const user = await TestFactory.createUser({
         email: 'test@example.com',
-        password: hashedPassword,
+        password: 'password123', // Will be hashed by hook
       });
 
       const response = await request(app)
         .post('/api/auth/login')
         .send({
           email: 'test@example.com',
-          password: password,
+          password: 'password123',
         });
 
       expect(response.status).toBe(200);
@@ -28,11 +24,9 @@ describe('API Integration Tests', () => {
     });
 
     it('should fail to login with invalid password', async () => {
-      const hashedPassword = await bcrypt.hash('password123', 10);
-
       await TestFactory.createUser({
         email: 'test2@example.com',
-        password: hashedPassword,
+        password: 'password123', // Will be hashed by hook
       });
 
       const response = await request(app)

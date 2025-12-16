@@ -2,23 +2,56 @@ import sequelize from '../config/database';
 
 // Setup runs before all tests
 beforeAll(async () => {
-  // Set test environment
-  process.env.NODE_ENV = 'test';
+  try {
+    // Set test environment
+    process.env.NODE_ENV = 'test';
 
-  // Sync database (create tables if they don't exist)
-  await sequelize.sync({ force: true });
+    // Test database connection
+    await sequelize.authenticate();
+
+    // Sync database (create tables if they don't exist)
+    await sequelize.sync({ force: true });
+  } catch (error) {
+    console.error('Failed to setup test database:', error);
+    throw error;
+  }
 });
 
 // Cleanup after each test
 afterEach(async () => {
-  // Clear all tables
-  const models = Object.values(sequelize.models);
-  for (const model of models) {
-    await model.destroy({ where: {}, force: true, truncate: true });
+  try {
+    // Disable foreign key checks
+    await sequelize.query('SET FOREIGN_KEY_CHECKS = 0');
+
+    // Clear all tables in reverse order
+    const tableNames = [
+      'readings',
+      'meters',
+      'addresses',
+      'clients',
+      'agents',
+      'districts',
+      'login_logs',
+      'users',
+    ];
+
+    for (const tableName of tableNames) {
+      await sequelize.query(`TRUNCATE TABLE ${tableName}`);
+    }
+
+    // Re-enable foreign key checks
+    await sequelize.query('SET FOREIGN_KEY_CHECKS = 1');
+  } catch (error) {
+    console.error('Failed to cleanup test database:', error);
+    // Don't throw - allow tests to continue
   }
 });
 
 // Cleanup after all tests
 afterAll(async () => {
-  await sequelize.close();
+  try {
+    await sequelize.close();
+  } catch (error) {
+    console.error('Failed to close database connection:', error);
+  }
 });
