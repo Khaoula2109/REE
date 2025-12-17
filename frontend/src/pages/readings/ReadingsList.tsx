@@ -8,7 +8,7 @@ import LoadingSpinner from '../../components/ui/LoadingSpinner';
 import EmptyState from '../../components/ui/EmptyState';
 import Button from '../../components/ui/Button';
 import Badge from '../../components/ui/Badge';
-import { formatDateTime, getMeterTypeLabel, getMeterTypeColor } from '../../lib/utils';
+import { formatDateTime, getMeterTypeLabel } from '../../lib/utils';
 import toast from 'react-hot-toast';
 
 const ReadingsList = () => {
