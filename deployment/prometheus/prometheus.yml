@@ -21,7 +21,7 @@ scrape_configs:
   # REE Backend API
   - job_name: 'ree-backend'
     static_configs:
-      - targets: ['backend:5000']
+      - targets: ['backend:5001']
     metrics_path: '/metrics'
     scrape_interval: 10s
 
