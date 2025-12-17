@@ -39,7 +39,12 @@ const Button = ({
       whileTap={{ scale: 0.98 }}
       className={cn(baseStyles, variants[variant], sizes[size], className)}
       disabled={disabled || isLoading}
-      {...props}
+      type={props.type}
+      onClick={props.onClick}
+      onSubmit={props.onSubmit}
+      form={props.form}
+      name={props.name}
+      value={props.value}
     >
       {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
       {children}

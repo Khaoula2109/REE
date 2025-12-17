@@ -13,7 +13,7 @@ interface UseIdleTimerOptions {
  * @param events - Array of events to listen to (default: mousemove, keydown, scroll, click)
  */
 export const useIdleTimer = ({ timeout, onIdle, events = ['mousemove', 'keydown', 'scroll', 'click', 'touchstart'] }: UseIdleTimerOptions) => {
-  const timeoutIdRef = useRef<NodeJS.Timeout | null>(null);
+  const timeoutIdRef = useRef<number | null>(null);
 
   useEffect(() => {
     const resetTimer = () => {
