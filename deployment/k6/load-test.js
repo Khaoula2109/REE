@@ -33,7 +33,7 @@ export const options = {
 };
 
 // Test data
-const BASE_URL = __ENV.API_URL || 'http://localhost:5000';
+const BASE_URL = __ENV.API_URL || 'http://localhost:5001';
 const USERS = [
   { email: 'agent1@ree.ma', password: 'Agent2024!' },
   { email: 'agent2@ree.ma', password: 'Agent2024!' },

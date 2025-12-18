@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # Build arguments for environment variables
-ARG VITE_API_URL=http://localhost:5000/api
+ARG VITE_API_URL=http://localhost:5001/api
 ARG VITE_APP_NAME=REE
 
 # Build the application
