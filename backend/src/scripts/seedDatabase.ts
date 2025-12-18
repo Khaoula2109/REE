@@ -215,6 +215,7 @@ const seedDatabase = async () => {
           agentId: randomAgent.id,
           previousIndex,
           currentIndex,
+          consumption: currentIndex - previousIndex,
           readingDate: readingDate >= threeMonthsAgo ? readingDate : threeMonthsAgo,
         });
 
