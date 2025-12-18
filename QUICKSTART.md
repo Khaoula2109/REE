@@ -132,6 +132,12 @@ docker compose up -d
 ### Gestion de la Base de Données
 
 ```bash
+# Vérifier la connexion à la base de données
+docker compose exec backend npm run db:check
+
+# Initialiser la base avec des données de test (⚠️ efface toutes les données!)
+docker compose exec backend npm run db:seed:init
+
 # Se connecter à MySQL
 docker compose exec mysql mysql -u root -p
 # Password: ReeSecureRoot2024!
@@ -145,6 +151,23 @@ docker compose exec -T mysql mysql -u root -pReeSecureRoot2024! ree_meter_readin
 # Voir les logs MySQL
 docker compose logs mysql
 ```
+
+**Données de Test:**
+
+Après avoir exécuté `npm run db:seed:init`, vous pouvez vous connecter avec:
+- **Superadmin:** `admin@ree.ma` / `Admin@123`
+- **Utilisateur:** `mbennani@ree.ma` / `User@123`
+- **Utilisateur:** `felamrani@ree.ma` / `User@123`
+
+La base contient:
+- 5 districts (Agdal, Hassan, Océan, Souissi, Yacoub El Mansour)
+- 7 agents répartis dans les districts
+- 50 clients avec des noms marocains
+- 100 adresses
+- ~180 compteurs (eau et électricité)
+- ~700 relevés historiques sur 90 jours
+
+📖 **Documentation complète:** `backend/DATABASE_SETUP.md`
 
 ### Débogage
 
