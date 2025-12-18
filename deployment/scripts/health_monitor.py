@@ -63,8 +63,12 @@ class HealthMonitor:
         # Check main health endpoint
         status['checks']['api_health'] = self.check_endpoint(f"{self.base_url}/api/health")
 
-        # Check authentication endpoint
-        status['checks']['auth_available'] = self.check_endpoint(f"{self.base_url}/api/auth/login", expect_status=[401, 400])
+        # Check authentication endpoint (POST with empty body)
+        status['checks']['auth_available'] = self.check_endpoint(
+            f"{self.base_url}/api/auth/login",
+            method='POST',
+            expect_status=[400, 422]  # Empty body should return validation error
+        )
 
         # Check backoffice API - readings endpoint
         status['checks']['backoffice_api'] = self.check_endpoint(f"{self.base_url}/api/readings", expect_status=[401])
@@ -75,13 +79,20 @@ class HealthMonitor:
 
         return status
 
-    def check_endpoint(self, url, expect_status=None, timeout=10):
+    def check_endpoint(self, url, method='GET', expect_status=None, timeout=10):
         """Check individual endpoint"""
         if expect_status is None:
             expect_status = [200]
 
         try:
-            req = urllib.request.Request(url)
+            req = urllib.request.Request(url, method=method)
+
+            # Add empty JSON body for POST requests
+            if method == 'POST':
+                req.add_header('Content-Type', 'application/json')
+                data = b'{}'
+                req.data = data
+
             start_time = time.time()
 
             try:
