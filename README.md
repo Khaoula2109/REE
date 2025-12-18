@@ -136,18 +136,27 @@ mysql -u root -p
 CREATE DATABASE ree_meter_reading CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 EXIT;
 
-# Initialiser et peupler la base
-npm run dev
-# Attendre que les tables soient créées, puis arrêter (Ctrl+C)
+# Vérifier la connexion à la base de données
+npm run db:check
 
-# Peupler avec des données de test
-npx ts-node src/scripts/seedDatabase.ts
+# Initialiser et peupler la base avec des données de test (⚠️ efface toutes les données!)
+npm run db:seed:init
 ```
 
 **Utilisateurs créés:**
 - **Superadmin**: `admin@ree.ma` / `Admin@123`
 - **User**: `mbennani@ree.ma` / `User@123`
 - **User**: `felamrani@ree.ma` / `User@123`
+
+**Données de test incluses:**
+- 5 districts (Agdal, Hassan, Océan, Souissi, Yacoub El Mansour)
+- 7 agents répartis dans les districts
+- 50 clients avec des noms marocains
+- 100 adresses
+- ~180 compteurs (eau et électricité)
+- ~700 relevés historiques sur 90 jours
+
+📖 **Documentation complète:** `backend/DATABASE_SETUP.md`
 
 ### 4. Configuration Frontend
 

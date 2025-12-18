@@ -9,6 +9,8 @@
     "start": "node dist/server.js",
     "db:migrate": "npx sequelize-cli db:migrate",
     "db:seed": "npx sequelize-cli db:seed:all",
+    "db:seed:init": "ts-node src/scripts/seedDatabase.ts",
+    "db:check": "ts-node src/scripts/checkDatabase.ts",
     "test": "NODE_ENV=test jest --runInBand",
     "test:watch": "NODE_ENV=test jest --watch --runInBand",
     "test:coverage": "NODE_ENV=test jest --coverage --runInBand",
