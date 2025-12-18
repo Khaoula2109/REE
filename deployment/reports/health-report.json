@@ -1,0 +1,47 @@
+{
+  "monitoring_duration_seconds": 120,
+  "total_checks": 6,
+  "healthy_checks": 0,
+  "uptime_percentage": 0.0,
+  "overall_health": "POOR",
+  "response_times": {},
+  "anomalies": [
+    {
+      "timestamp": "2025-12-18T15:53:08.795455",
+      "type": "SERVICE_UNHEALTHY",
+      "severity": "CRITICAL",
+      "message": "One or more health checks failed"
+    },
+    {
+      "timestamp": "2025-12-18T15:53:28.801239",
+      "type": "SERVICE_UNHEALTHY",
+      "severity": "CRITICAL",
+      "message": "One or more health checks failed"
+    },
+    {
+      "timestamp": "2025-12-18T15:53:48.803752",
+      "type": "SERVICE_UNHEALTHY",
+      "severity": "CRITICAL",
+      "message": "One or more health checks failed"
+    },
+    {
+      "timestamp": "2025-12-18T15:54:08.805944",
+      "type": "SERVICE_UNHEALTHY",
+      "severity": "CRITICAL",
+      "message": "One or more health checks failed"
+    },
+    {
+      "timestamp": "2025-12-18T15:54:28.808550",
+      "type": "SERVICE_UNHEALTHY",
+      "severity": "CRITICAL",
+      "message": "One or more health checks failed"
+    },
+    {
+      "timestamp": "2025-12-18T15:54:48.811334",
+      "type": "SERVICE_UNHEALTHY",
+      "severity": "CRITICAL",
+      "message": "One or more health checks failed"
+    }
+  ],
+  "recommendation": "\u274c Deployment failed. Critical issues detected - consider rollback."
+}
