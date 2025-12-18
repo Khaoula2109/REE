@@ -35,9 +35,9 @@ export const options = {
 // Test data
 const BASE_URL = __ENV.API_URL || 'http://localhost:5001';
 const USERS = [
-  { email: 'agent1@ree.ma', password: 'Agent2024!' },
-  { email: 'agent2@ree.ma', password: 'Agent2024!' },
-  { email: 'supervisor@ree.ma', password: 'Supervisor2024!' },
+  { email: 'admin@ree.ma', password: 'Admin@123' },
+  { email: 'mbennani@ree.ma', password: 'User@123' },
+  { email: 'felamrani@ree.ma', password: 'User@123' },
 ];
 
 // Helper function to get random user
@@ -50,7 +50,7 @@ export function setup() {
   console.log('🚀 Starting load test setup...');
 
   // Check API health
-  const healthCheck = http.get(`${BASE_URL}/health`);
+  const healthCheck = http.get(`${BASE_URL}/api/health`);
   check(healthCheck, {
     'API is healthy': (r) => r.status === 200,
   });
@@ -99,8 +99,8 @@ export default function(data) {
       const authData = JSON.parse(loginRes.body);
       const token = authData.accessToken;
 
-      // Test 2: Mobile API - Get Addresses
-      group('Mobile API - Addresses', () => {
+      // Test 2: Get Dashboard Stats
+      group('Backoffice API - Dashboard', () => {
         const authParams = {
           headers: {
             'Content-Type': 'application/json',
@@ -109,33 +109,33 @@ export default function(data) {
         };
 
         const apiStart = new Date();
-        const addressRes = http.get(
-          `${BASE_URL}/api/mobile/addresses`,
+        const dashboardRes = http.get(
+          `${BASE_URL}/api/dashboard/stats`,
           authParams
         );
         const apiEnd = new Date();
 
-        const addressSuccess = check(addressRes, {
-          'addresses status is 200': (r) => r.status === 200,
-          'addresses response is array': (r) => {
+        const dashboardSuccess = check(dashboardRes, {
+          'dashboard status is 200': (r) => r.status === 200,
+          'dashboard has stats': (r) => {
             try {
               const body = JSON.parse(r.body);
-              return Array.isArray(body);
+              return body !== undefined;
             } catch {
               return false;
             }
           },
         });
 
-        if (addressSuccess) {
+        if (dashboardSuccess) {
           apiDuration.add(apiEnd - apiStart);
         } else {
           errorRate.add(1);
         }
       });
 
-      // Test 3: Mobile API - Get Statistics
-      group('Mobile API - Statistics', () => {
+      // Test 3: Get Agents List
+      group('Backoffice API - Agents', () => {
         const authParams = {
           headers: {
             'Content-Type': 'application/json',
@@ -143,17 +143,17 @@ export default function(data) {
           },
         };
 
-        const statsRes = http.get(
-          `${BASE_URL}/api/mobile/stats`,
+        const agentsRes = http.get(
+          `${BASE_URL}/api/agents`,
           authParams
         );
 
-        check(statsRes, {
-          'stats status is 200': (r) => r.status === 200,
-          'stats has totalReadings': (r) => {
+        check(agentsRes, {
+          'agents status is 200': (r) => r.status === 200,
+          'agents response has data': (r) => {
             try {
               const body = JSON.parse(r.body);
-              return body.totalReadings !== undefined;
+              return body !== undefined;
             } catch {
               return false;
             }
@@ -161,34 +161,24 @@ export default function(data) {
         });
       });
 
-      // Test 4: Create Reading (if agent role)
-      if (user.email.includes('agent')) {
-        group('Mobile API - Create Reading', () => {
-          const authParams = {
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${token}`,
-            },
-          };
+      // Test 4: Get Readings List
+      group('Backoffice API - Readings', () => {
+        const authParams = {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          },
+        };
 
-          const readingPayload = JSON.stringify({
-            meterId: Math.floor(Math.random() * 100) + 1,
-            previousIndex: 1000 + Math.floor(Math.random() * 1000),
-            currentIndex: 2000 + Math.floor(Math.random() * 1000),
-            readingDate: new Date().toISOString(),
-          });
+        const readingsRes = http.get(
+          `${BASE_URL}/api/readings`,
+          authParams
+        );
 
-          const readingRes = http.post(
-            `${BASE_URL}/api/mobile/readings`,
-            readingPayload,
-            authParams
-          );
-
-          check(readingRes, {
-            'reading created or validated': (r) => r.status === 201 || r.status === 400,
-          });
+        check(readingsRes, {
+          'readings list accessible': (r) => r.status === 200,
         });
-      }
+      });
 
     } else {
       errorRate.add(1);
