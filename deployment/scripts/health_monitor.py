@@ -61,13 +61,13 @@ class HealthMonitor:
         }
 
         # Check main health endpoint
-        status['checks']['api_health'] = self.check_endpoint(f"{self.base_url}/health")
+        status['checks']['api_health'] = self.check_endpoint(f"{self.base_url}/api/health")
 
         # Check authentication endpoint
         status['checks']['auth_available'] = self.check_endpoint(f"{self.base_url}/api/auth/login", expect_status=[401, 400])
 
-        # Check mobile API
-        status['checks']['mobile_api'] = self.check_endpoint(f"{self.base_url}/api/mobile/addresses", expect_status=[401])
+        # Check backoffice API - readings endpoint
+        status['checks']['backoffice_api'] = self.check_endpoint(f"{self.base_url}/api/readings", expect_status=[401])
 
         # Overall health
         all_checks = list(status['checks'].values())
