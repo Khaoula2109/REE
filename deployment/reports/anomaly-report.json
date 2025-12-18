@@ -1,0 +1,112 @@
+{
+  "timestamp": "2025-12-18T17:51:30",
+  "health_status": "DEGRADED",
+  "health_score": 72,
+  "total_anomalies": 5,
+  "anomalies": [
+    {
+      "type": "CPU_ANOMALY",
+      "severity": "WARNING",
+      "confidence": 0.85,
+      "timestamp": "2025-12-18T17:50:00",
+      "description": "CPU usage spike detected",
+      "details": {
+        "metric": "cpu_usage",
+        "current_value": 85.3,
+        "threshold": 70,
+        "duration": "2 minutes"
+      },
+      "indicators": [
+        "Sustained high CPU usage above 80%",
+        "Multiple concurrent requests detected",
+        "Background jobs running"
+      ]
+    },
+    {
+      "type": "PERFORMANCE_DEGRADATION",
+      "severity": "WARNING",
+      "confidence": 0.78,
+      "timestamp": "2025-12-18T17:48:30",
+      "description": "Response times exceeding acceptable thresholds",
+      "details": {
+        "metric": "response_time_p95",
+        "current_value": 7080,
+        "threshold": 1000,
+        "endpoint": "/api/readings"
+      },
+      "indicators": [
+        "P95 response time: 7.08s",
+        "P99 response time: 10.23s",
+        "Database queries not optimized"
+      ]
+    },
+    {
+      "type": "ERROR_BURST",
+      "severity": "MEDIUM",
+      "confidence": 0.65,
+      "timestamp": "2025-12-18T17:45:00",
+      "description": "Increased error rate detected",
+      "details": {
+        "metric": "error_rate",
+        "current_value": 2.5,
+        "threshold": 1.0,
+        "error_type": "ValidationError"
+      },
+      "indicators": [
+        "Validation errors increased by 150%",
+        "Most errors on /api/auth/login endpoint",
+        "Invalid email format errors"
+      ]
+    },
+    {
+      "type": "MEMORY_LEAK",
+      "severity": "LOW",
+      "confidence": 0.55,
+      "timestamp": "2025-12-18T17:40:00",
+      "description": "Gradual memory usage increase",
+      "details": {
+        "metric": "memory_usage",
+        "current_value": 512,
+        "baseline": 380,
+        "trend": "increasing",
+        "rate_mb_per_hour": 15
+      },
+      "indicators": [
+        "Memory usage increased 35% over 2 hours",
+        "No corresponding increase in active connections",
+        "Possible memory leak in cache layer"
+      ]
+    },
+    {
+      "type": "SERVICE_UNHEALTHY",
+      "severity": "CRITICAL",
+      "confidence": 0.95,
+      "timestamp": "2025-12-18T15:53:08",
+      "description": "Health check failures detected",
+      "details": {
+        "metric": "health_check_failures",
+        "failed_checks": ["auth_available"],
+        "success_rate": 66.7
+      },
+      "indicators": [
+        "auth_available endpoint returning 404",
+        "Using GET instead of POST method",
+        "Fixed in recent deployment"
+      ]
+    }
+  ],
+  "summary": {
+    "critical": 1,
+    "high": 0,
+    "medium": 1,
+    "warning": 2,
+    "low": 1
+  },
+  "recommendations": [
+    "⚠️ System showing signs of degradation - immediate attention required",
+    "Address performance issues in /api/readings endpoint",
+    "Investigate CPU spike causes and optimize background processes",
+    "Monitor memory usage trends over next 24 hours",
+    "Validate error patterns and improve input validation"
+  ]
+}

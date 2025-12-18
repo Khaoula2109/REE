@@ -1,0 +1,309 @@
+{
+  "timestamp": "2025-12-18T17:53:01.096772",
+  "total_incidents": 9,
+  "total_automated_fixes": 11,
+  "total_manual_fixes": 26,
+  "fix_suggestions": [
+    {
+      "incident_id": "AN-0005",
+      "incident_title": "Service Unhealthy",
+      "incident_severity": "CRITICAL",
+      "priority": "P0 - CRITICAL",
+      "automated_fixes": [
+        {
+          "name": "Restart All Services",
+          "command": "docker-compose restart",
+          "risk": "HIGH",
+          "estimated_time": "2 minutes",
+          "prerequisites": [
+            "Maintenance window"
+          ],
+          "rollback": "docker-compose up -d"
+        }
+      ],
+      "manual_fixes": [
+        "Check system resources (CPU, memory, disk)",
+        "Verify network connectivity",
+        "Review system logs"
+      ],
+      "confidence_score": 1.0,
+      "recommendation": "Apply automated fix immediately: Restart All Services"
+    },
+    {
+      "incident_id": "HM-0006",
+      "incident_title": "System Health POOR",
+      "incident_severity": "HIGH",
+      "priority": "P0 - CRITICAL",
+      "automated_fixes": [
+        {
+          "name": "Restart All Services",
+          "command": "docker-compose restart",
+          "risk": "HIGH",
+          "estimated_time": "2 minutes",
+          "prerequisites": [
+            "Maintenance window"
+          ],
+          "rollback": "docker-compose up -d"
+        }
+      ],
+      "manual_fixes": [
+        "Check system resources (CPU, memory, disk)",
+        "Verify network connectivity",
+        "Review system logs"
+      ],
+      "confidence_score": 1.0,
+      "recommendation": "Apply automated fix immediately: Restart All Services"
+    },
+    {
+      "incident_id": "HM-0007",
+      "incident_title": "SERVICE_UNHEALTHY",
+      "incident_severity": "CRITICAL",
+      "priority": "P1 - HIGH",
+      "automated_fixes": [
+        {
+          "name": "Restart All Services",
+          "command": "docker-compose restart",
+          "risk": "HIGH",
+          "estimated_time": "2 minutes",
+          "prerequisites": [
+            "Maintenance window"
+          ],
+          "rollback": "docker-compose up -d"
+        }
+      ],
+      "manual_fixes": [
+        "Check system resources (CPU, memory, disk)",
+        "Verify network connectivity",
+        "Review system logs"
+      ],
+      "confidence_score": 1.0,
+      "recommendation": "Apply automated fix immediately: Restart All Services"
+    },
+    {
+      "incident_id": "HM-0008",
+      "incident_title": "SERVICE_UNHEALTHY",
+      "incident_severity": "CRITICAL",
+      "priority": "P1 - HIGH",
+      "automated_fixes": [
+        {
+          "name": "Restart All Services",
+          "command": "docker-compose restart",
+          "risk": "HIGH",
+          "estimated_time": "2 minutes",
+          "prerequisites": [
+            "Maintenance window"
+          ],
+          "rollback": "docker-compose up -d"
+        }
+      ],
+      "manual_fixes": [
+        "Check system resources (CPU, memory, disk)",
+        "Verify network connectivity",
+        "Review system logs"
+      ],
+      "confidence_score": 1.0,
+      "recommendation": "Apply automated fix immediately: Restart All Services"
+    },
+    {
+      "incident_id": "HM-0009",
+      "incident_title": "SERVICE_UNHEALTHY",
+      "incident_severity": "CRITICAL",
+      "priority": "P1 - HIGH",
+      "automated_fixes": [
+        {
+          "name": "Restart All Services",
+          "command": "docker-compose restart",
+          "risk": "HIGH",
+          "estimated_time": "2 minutes",
+          "prerequisites": [
+            "Maintenance window"
+          ],
+          "rollback": "docker-compose up -d"
+        }
+      ],
+      "manual_fixes": [
+        "Check system resources (CPU, memory, disk)",
+        "Verify network connectivity",
+        "Review system logs"
+      ],
+      "confidence_score": 1.0,
+      "recommendation": "Apply automated fix immediately: Restart All Services"
+    },
+    {
+      "incident_id": "AN-0001",
+      "incident_title": "Cpu Anomaly",
+      "incident_severity": "WARNING",
+      "priority": "P1 - HIGH",
+      "automated_fixes": [
+        {
+          "name": "Scale Backend Horizontally",
+          "command": "docker-compose up -d --scale backend=5",
+          "risk": "LOW",
+          "estimated_time": "2 minutes",
+          "prerequisites": [
+            "Docker Compose environment"
+          ],
+          "rollback": "docker-compose up -d --scale backend=3"
+        },
+        {
+          "name": "Increase CPU Limits",
+          "command": "kubectl set resources deployment backend --limits=cpu=4",
+          "risk": "LOW",
+          "estimated_time": "1 minute",
+          "prerequisites": [
+            "Kubernetes environment"
+          ],
+          "rollback": "kubectl set resources deployment backend --limits=cpu=2"
+        }
+      ],
+      "manual_fixes": [
+        "Optimize CPU-intensive algorithms",
+        "Add caching layer to reduce computation",
+        "Profile code to identify bottlenecks"
+      ],
+      "confidence_score": 1.0,
+      "recommendation": "Consider applying automated fix: Scale Backend Horizontally"
+    },
+    {
+      "incident_id": "AN-0002",
+      "incident_title": "Performance Degradation",
+      "incident_severity": "WARNING",
+      "priority": "P1 - HIGH",
+      "automated_fixes": [
+        {
+          "name": "Add Database Indexes",
+          "command": "mysql -e \"CREATE INDEX idx_reading_date ON readings(reading_date)\"",
+          "risk": "MEDIUM",
+          "estimated_time": "5 minutes",
+          "prerequisites": [
+            "Database access",
+            "Maintenance window"
+          ],
+          "rollback": "mysql -e \"DROP INDEX idx_reading_date ON readings\""
+        },
+        {
+          "name": "Enable Query Cache",
+          "command": "mysql -e \"SET GLOBAL query_cache_size = 67108864\"",
+          "risk": "LOW",
+          "estimated_time": "1 minute",
+          "prerequisites": [
+            "Database access"
+          ],
+          "rollback": "mysql -e \"SET GLOBAL query_cache_size = 0\""
+        }
+      ],
+      "manual_fixes": [
+        "Optimize slow SQL queries",
+        "Add database connection pooling",
+        "Implement query result caching with Redis"
+      ],
+      "confidence_score": 0.98,
+      "recommendation": "Consider applying automated fix: Add Database Indexes"
+    },
+    {
+      "incident_id": "AN-0003",
+      "incident_title": "Error Burst",
+      "incident_severity": "MEDIUM",
+      "priority": "P2 - MEDIUM",
+      "automated_fixes": [
+        {
+          "name": "Restart Backend Service",
+          "command": "docker-compose restart backend",
+          "risk": "MEDIUM",
+          "estimated_time": "30 seconds",
+          "prerequisites": [
+            "Service downtime acceptable"
+          ],
+          "rollback": "N/A (service will restart)"
+        },
+        {
+          "name": "Clear Application Cache",
+          "command": "docker-compose exec backend npm run cache:clear",
+          "risk": "LOW",
+          "estimated_time": "10 seconds",
+          "prerequisites": [
+            "Backend running"
+          ],
+          "rollback": "N/A"
+        }
+      ],
+      "manual_fixes": [
+        "Check application logs for root cause",
+        "Verify external service dependencies",
+        "Review recent code deployments"
+      ],
+      "confidence_score": 0.8500000000000001,
+      "recommendation": "Consider applying automated fix: Restart Backend Service"
+    },
+    {
+      "incident_id": "AN-0004",
+      "incident_title": "Memory Leak",
+      "incident_severity": "LOW",
+      "priority": "P2 - MEDIUM",
+      "automated_fixes": [],
+      "manual_fixes": [
+        "Investigate incident manually",
+        "Check application logs"
+      ],
+      "confidence_score": 0.55,
+      "recommendation": "Manual investigation required"
+    }
+  ],
+  "execution_plan": {
+    "immediate_actions": [],
+    "short_term_actions": [
+      {
+        "incident": "HM-0007",
+        "action": "Restart All Services",
+        "command": "docker-compose restart"
+      },
+      {
+        "incident": "HM-0008",
+        "action": "Restart All Services",
+        "command": "docker-compose restart"
+      },
+      {
+        "incident": "HM-0009",
+        "action": "Restart All Services",
+        "command": "docker-compose restart"
+      },
+      {
+        "incident": "AN-0001",
+        "action": "Scale Backend Horizontally",
+        "command": "docker-compose up -d --scale backend=5"
+      },
+      {
+        "incident": "AN-0002",
+        "action": "Add Database Indexes",
+        "command": "mysql -e \"CREATE INDEX idx_reading_date ON readings(reading_date)\""
+      }
+    ],
+    "long_term_actions": [
+      {
+        "incident": "AN-0005",
+        "action": "Check system resources (CPU, memory, disk)"
+      },
+      {
+        "incident": "AN-0005",
+        "action": "Verify network connectivity"
+      },
+      {
+        "incident": "HM-0006",
+        "action": "Check system resources (CPU, memory, disk)"
+      },
+      {
+        "incident": "HM-0006",
+        "action": "Verify network connectivity"
+      },
+      {
+        "incident": "HM-0007",
+        "action": "Check system resources (CPU, memory, disk)"
+      },
+      {
+        "incident": "HM-0007",
+        "action": "Verify network connectivity"
+      }
+    ]
+  },
+  "summary": "\u2705 11 automated fixes available. 26 manual fixes suggested."
+}

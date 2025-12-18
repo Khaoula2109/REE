@@ -264,8 +264,8 @@ class AutoFixSuggester:
 
     def generate_summary(self):
         """Generate executive summary"""
-        automated = self.generate_report()['total_automated_fixes']
-        manual = self.generate_report()['total_manual_fixes']
+        automated = sum(len(s['automated_fixes']) for s in self.fix_suggestions)
+        manual = sum(len(s['manual_fixes']) for s in self.fix_suggestions)
 
         if automated > 0:
             return f"✅ {automated} automated fixes available. {manual} manual fixes suggested."
