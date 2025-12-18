@@ -218,13 +218,22 @@ function textSummary(data, options) {
     summary += `${indent}Total Requests: ${metrics.http_reqs.values.count}\n`;
   }
   if (metrics.http_req_duration) {
-    summary += `${indent}Avg Response Time: ${metrics.http_req_duration.values.avg.toFixed(2)}ms\n`;
-    summary += `${indent}P95 Response Time: ${metrics.http_req_duration.values['p(95)'].toFixed(2)}ms\n`;
-    summary += `${indent}P99 Response Time: ${metrics.http_req_duration.values['p(99)'].toFixed(2)}ms\n`;
+    const duration = metrics.http_req_duration.values;
+    if (duration.avg !== undefined && duration.avg !== null) {
+      summary += `${indent}Avg Response Time: ${duration.avg.toFixed(2)}ms\n`;
+    }
+    if (duration['p(95)'] !== undefined && duration['p(95)'] !== null) {
+      summary += `${indent}P95 Response Time: ${duration['p(95)'].toFixed(2)}ms\n`;
+    }
+    if (duration['p(99)'] !== undefined && duration['p(99)'] !== null) {
+      summary += `${indent}P99 Response Time: ${duration['p(99)'].toFixed(2)}ms\n`;
+    }
   }
   if (metrics.http_req_failed) {
-    const failRate = (metrics.http_req_failed.values.rate * 100).toFixed(2);
-    summary += `${indent}Error Rate: ${failRate}%\n`;
+    const failRate = metrics.http_req_failed.values.rate;
+    if (failRate !== undefined && failRate !== null) {
+      summary += `${indent}Error Rate: ${(failRate * 100).toFixed(2)}%\n`;
+    }
   }
 
   return summary;
