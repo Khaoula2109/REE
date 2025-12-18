@@ -219,7 +219,7 @@ class HealthMonitor:
 
 def main():
     parser = argparse.ArgumentParser(description='Post-Deployment Health Monitoring')
-    parser.add_argument('--url', default='http://localhost:5000', help='Base URL to monitor')
+    parser.add_argument('--url', default='http://localhost:5001', help='Base URL to monitor')
     parser.add_argument('--duration', type=int, default=300, help='Monitoring duration in seconds')
     parser.add_argument('--interval', type=int, default=30, help='Check interval in seconds')
     parser.add_argument('--output', default='health-report.json', help='Output file for health report')
