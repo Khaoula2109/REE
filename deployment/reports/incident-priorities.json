@@ -1,0 +1,240 @@
+{
+  "timestamp": "2025-12-18T17:53:01.013627",
+  "total_incidents": 9,
+  "priority_counts": {
+    "P0": 2,
+    "P1": 5,
+    "P2": 2,
+    "P3": 0,
+    "P4": 0
+  },
+  "incidents": [
+    {
+      "id": "AN-0005",
+      "type": "ANOMALY",
+      "title": "Service Unhealthy",
+      "description": "Health check failures detected",
+      "severity": "CRITICAL",
+      "confidence": 0.95,
+      "source": "Anomaly Detector",
+      "indicators": [
+        "auth_available endpoint returning 404",
+        "Using GET instead of POST method",
+        "Fixed in recent deployment"
+      ],
+      "recommendation": "Investigate immediately",
+      "timestamp": "2025-12-18T17:53:01.013492",
+      "priority_score": 90,
+      "priority_level": "P0 - CRITICAL",
+      "sla_deadline": {
+        "hours": 1,
+        "deadline_iso": "2025-12-18T18:53:01.013566",
+        "deadline_human": "1h from now"
+      }
+    },
+    {
+      "id": "HM-0006",
+      "type": "HEALTH",
+      "title": "System Health POOR",
+      "description": "Overall system health is POOR",
+      "severity": "HIGH",
+      "confidence": 1.0,
+      "source": "Health Monitor",
+      "indicators": [
+        "Uptime: 0.0%",
+        "Failed checks: 6"
+      ],
+      "recommendation": "\u274c Deployment failed. Critical issues detected - consider rollback.",
+      "timestamp": "2025-12-18T17:53:01.013512",
+      "priority_score": 82,
+      "priority_level": "P0 - CRITICAL",
+      "sla_deadline": {
+        "hours": 1,
+        "deadline_iso": "2025-12-18T18:53:01.013571",
+        "deadline_human": "1h from now"
+      }
+    },
+    {
+      "id": "HM-0007",
+      "type": "HEALTH_ANOMALY",
+      "title": "SERVICE_UNHEALTHY",
+      "description": "One or more health checks failed",
+      "severity": "CRITICAL",
+      "confidence": 0.8,
+      "source": "Health Monitor",
+      "indicators": [],
+      "recommendation": "Check application health and logs",
+      "timestamp": "2025-12-18T15:53:08.795455",
+      "priority_score": 78,
+      "priority_level": "P1 - HIGH",
+      "sla_deadline": {
+        "hours": 4,
+        "deadline_iso": "2025-12-18T21:53:01.013578",
+        "deadline_human": "4h from now"
+      }
+    },
+    {
+      "id": "HM-0008",
+      "type": "HEALTH_ANOMALY",
+      "title": "SERVICE_UNHEALTHY",
+      "description": "One or more health checks failed",
+      "severity": "CRITICAL",
+      "confidence": 0.8,
+      "source": "Health Monitor",
+      "indicators": [],
+      "recommendation": "Check application health and logs",
+      "timestamp": "2025-12-18T15:53:28.801239",
+      "priority_score": 78,
+      "priority_level": "P1 - HIGH",
+      "sla_deadline": {
+        "hours": 4,
+        "deadline_iso": "2025-12-18T21:53:01.013591",
+        "deadline_human": "4h from now"
+      }
+    },
+    {
+      "id": "HM-0009",
+      "type": "HEALTH_ANOMALY",
+      "title": "SERVICE_UNHEALTHY",
+      "description": "One or more health checks failed",
+      "severity": "CRITICAL",
+      "confidence": 0.8,
+      "source": "Health Monitor",
+      "indicators": [],
+      "recommendation": "Check application health and logs",
+      "timestamp": "2025-12-18T15:53:48.803752",
+      "priority_score": 78,
+      "priority_level": "P1 - HIGH",
+      "sla_deadline": {
+        "hours": 4,
+        "deadline_iso": "2025-12-18T21:53:01.013599",
+        "deadline_human": "4h from now"
+      }
+    },
+    {
+      "id": "AN-0001",
+      "type": "ANOMALY",
+      "title": "Cpu Anomaly",
+      "description": "CPU usage spike detected",
+      "severity": "WARNING",
+      "confidence": 0.85,
+      "source": "Anomaly Detector",
+      "indicators": [
+        "Sustained high CPU usage above 80%",
+        "Multiple concurrent requests detected",
+        "Background jobs running"
+      ],
+      "recommendation": "Investigate immediately",
+      "timestamp": "2025-12-18T17:53:01.013462",
+      "priority_score": 68,
+      "priority_level": "P1 - HIGH",
+      "sla_deadline": {
+        "hours": 4,
+        "deadline_iso": "2025-12-18T21:53:01.013531",
+        "deadline_human": "4h from now"
+      }
+    },
+    {
+      "id": "AN-0002",
+      "type": "ANOMALY",
+      "title": "Performance Degradation",
+      "description": "Response times exceeding acceptable thresholds",
+      "severity": "WARNING",
+      "confidence": 0.78,
+      "source": "Anomaly Detector",
+      "indicators": [
+        "P95 response time: 7.08s",
+        "P99 response time: 10.23s",
+        "Database queries not optimized"
+      ],
+      "recommendation": "Investigate immediately",
+      "timestamp": "2025-12-18T17:53:01.013480",
+      "priority_score": 66,
+      "priority_level": "P1 - HIGH",
+      "sla_deadline": {
+        "hours": 4,
+        "deadline_iso": "2025-12-18T21:53:01.013549",
+        "deadline_human": "4h from now"
+      }
+    },
+    {
+      "id": "AN-0003",
+      "type": "ANOMALY",
+      "title": "Error Burst",
+      "description": "Increased error rate detected",
+      "severity": "MEDIUM",
+      "confidence": 0.65,
+      "source": "Anomaly Detector",
+      "indicators": [
+        "Validation errors increased by 150%",
+        "Most errors on /api/auth/login endpoint",
+        "Invalid email format errors"
+      ],
+      "recommendation": "Investigate immediately",
+      "timestamp": "2025-12-18T17:53:01.013485",
+      "priority_score": 64,
+      "priority_level": "P2 - MEDIUM",
+      "sla_deadline": {
+        "hours": 24,
+        "deadline_iso": "2025-12-19T17:53:01.013555",
+        "deadline_human": "24h from now"
+      }
+    },
+    {
+      "id": "AN-0004",
+      "type": "ANOMALY",
+      "title": "Memory Leak",
+      "description": "Gradual memory usage increase",
+      "severity": "LOW",
+      "confidence": 0.55,
+      "source": "Anomaly Detector",
+      "indicators": [
+        "Memory usage increased 35% over 2 hours",
+        "No corresponding increase in active connections",
+        "Possible memory leak in cache layer"
+      ],
+      "recommendation": "Investigate immediately",
+      "timestamp": "2025-12-18T17:53:01.013489",
+      "priority_score": 52,
+      "priority_level": "P2 - MEDIUM",
+      "sla_deadline": {
+        "hours": 24,
+        "deadline_iso": "2025-12-19T17:53:01.013561",
+        "deadline_human": "24h from now"
+      }
+    }
+  ],
+  "action_plan": [
+    {
+      "priority": "IMMEDIATE",
+      "action": "Address all P0 critical incidents",
+      "incidents": [
+        "AN-0005",
+        "HM-0006"
+      ],
+      "deadline": "1 hour",
+      "team": "On-call engineer + Manager"
+    },
+    {
+      "priority": "URGENT",
+      "action": "Resolve all P1 high priority incidents",
+      "incidents": [
+        "HM-0007",
+        "HM-0008",
+        "HM-0009",
+        "AN-0001",
+        "AN-0002"
+      ],
+      "deadline": "4 hours",
+      "team": "On-call engineer"
+    },
+    {
+      "priority": "PREVENTIVE",
+      "action": "Schedule incident review meeting",
+      "incidents": [],
+      "deadline": "24 hours",
+      "team": "Engineering team"
+    }
+  ],
+  "summary": "\ud83d\udd34 CRITICAL: 2 P0 incidents require immediate attention!"
+}

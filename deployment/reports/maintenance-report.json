@@ -1,0 +1,57 @@
+{
+  "timestamp": "2025-12-18T17:53:01.103599",
+  "maintenance_score": 56.0,
+  "maintenance_status": "NEEDS_ATTENTION",
+  "summary": {
+    "anomalies": {
+      "total": 5,
+      "critical": 0,
+      "health_status": "DEGRADED"
+    },
+    "incidents": {
+      "total": 9,
+      "p0": 2,
+      "p1": 5
+    },
+    "fixes": {
+      "automated": 11,
+      "manual": 26
+    }
+  },
+  "detailed_reports": {
+    "anomaly_report": "anomaly-report.json",
+    "incident_report": "incident-priorities.json",
+    "fix_report": "fix-suggestions.json"
+  },
+  "action_items": [
+    {
+      "priority": "CRITICAL",
+      "action": "Address 2 P0 critical incidents immediately",
+      "deadline": "1 hour",
+      "automated": true
+    },
+    {
+      "priority": "HIGH",
+      "action": "Resolve 5 P1 high priority incidents",
+      "deadline": "4 hours",
+      "automated": false
+    }
+  ],
+  "recommendations": [
+    {
+      "category": "URGENT",
+      "recommendation": "Multiple issues detected. Prioritize P0 and P1 incidents for resolution.",
+      "impact": "MEDIUM"
+    },
+    {
+      "category": "PREVENTIVE",
+      "recommendation": "Schedule maintenance review to address root causes and prevent future incidents.",
+      "impact": "LONG_TERM"
+    },
+    {
+      "category": "MONITORING",
+      "recommendation": "Increase monitoring frequency and set up alerting for detected anomaly patterns.",
+      "impact": "MEDIUM"
+    }
+  ]
+}
