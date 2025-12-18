@@ -213,9 +213,9 @@ class IntelligentProvisioner:
             "instances": compute.get('backend_instances', 2),
             "cpu": compute.get('backend_cpu', '2 vCPU'),
             "memory": compute.get('backend_memory', '4 GB'),
-            "port": 5000,
+            "port": 5001,
             "health_check": {
-                "path": "/health",
+                "path": "/api/health",
                 "interval": 30,
                 "timeout": 10,
                 "unhealthy_threshold": 3
@@ -316,7 +316,7 @@ class IntelligentProvisioner:
                 "retention_days": monitoring_config.get('metrics_retention_days', 30),
                 "scrape_interval": "30s",
                 "targets": [
-                    {"job": "backend", "port": 5000, "path": "/metrics"},
+                    {"job": "backend", "port": 5001, "path": "/metrics"},
                     {"job": "mysql", "exporter": "mysqld_exporter"},
                     {"job": "redis", "exporter": "redis_exporter"}
                 ]

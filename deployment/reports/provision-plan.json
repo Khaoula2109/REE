@@ -1,0 +1,214 @@
+{
+  "environment": "production",
+  "timestamp": "2025-12-18T15:52:47.499789",
+  "resources": {
+    "backend": {
+      "type": "container",
+      "image": "ghcr.io/ree/backend:latest",
+      "instances": 3,
+      "cpu": "4 vCPU",
+      "memory": "8 GB",
+      "port": 5000,
+      "health_check": {
+        "path": "/health",
+        "interval": 30,
+        "timeout": 10,
+        "unhealthy_threshold": 3
+      }
+    },
+    "frontend": {
+      "type": "container",
+      "image": "ghcr.io/ree/frontend:latest",
+      "instances": 2,
+      "cpu": "1 vCPU",
+      "memory": "1 GB",
+      "port": 80,
+      "health_check": {
+        "path": "/health",
+        "interval": 30,
+        "timeout": 5,
+        "unhealthy_threshold": 2
+      }
+    },
+    "database": {
+      "type": "mysql",
+      "version": "8.0",
+      "instance_type": "db.r5.large",
+      "storage_gb": 100,
+      "storage_type": "gp3",
+      "multi_az": true,
+      "backup_enabled": true,
+      "backup_retention_days": 30,
+      "read_replicas": 1,
+      "parameters": {
+        "max_connections": 300,
+        "innodb_buffer_pool_size": "2G",
+        "query_cache_size": "0",
+        "slow_query_log": 1,
+        "long_query_time": 2
+      }
+    },
+    "redis": {
+      "type": "redis",
+      "version": "7.0",
+      "instance_type": "cache.r5.large",
+      "memory_gb": 13,
+      "cluster_enabled": true,
+      "replicas": 2,
+      "parameters": {
+        "maxmemory-policy": "allkeys-lru",
+        "timeout": 300
+      }
+    },
+    "load_balancer": {
+      "type": "application",
+      "scheme": "internet-facing",
+      "ssl_enabled": true,
+      "ssl_policy": "ELBSecurityPolicy-TLS-1-2-2017-01",
+      "idle_timeout": 60,
+      "connection_draining": 300,
+      "health_check": {
+        "enabled": true,
+        "interval": 30,
+        "timeout": 5,
+        "healthy_threshold": 2,
+        "unhealthy_threshold": 3
+      },
+      "routing": [
+        {
+          "path": "/api/*",
+          "target": "backend",
+          "sticky_sessions": true
+        },
+        {
+          "path": "/*",
+          "target": "frontend"
+        }
+      ]
+    }
+  },
+  "configuration": {
+    "deployment_strategy": "rolling",
+    "rolling_update": {
+      "max_surge": "25%",
+      "max_unavailable": "25%"
+    },
+    "canary": null,
+    "health_check_grace_period": 60,
+    "rollback_enabled": true,
+    "environment_variables": {
+      "NODE_ENV": "production",
+      "LOG_LEVEL": "info",
+      "ENABLE_METRICS": "true",
+      "ENABLE_TRACING": "true"
+    }
+  },
+  "monitoring": {
+    "prometheus": {
+      "enabled": true,
+      "retention_days": 90,
+      "scrape_interval": "30s",
+      "targets": [
+        {
+          "job": "backend",
+          "port": 5000,
+          "path": "/metrics"
+        },
+        {
+          "job": "mysql",
+          "exporter": "mysqld_exporter"
+        },
+        {
+          "job": "redis",
+          "exporter": "redis_exporter"
+        }
+      ]
+    },
+    "grafana": {
+      "enabled": true,
+      "dashboards": [
+        "application_overview",
+        "database_performance",
+        "api_metrics",
+        "infrastructure_health"
+      ]
+    },
+    "alerting": {
+      "enabled": true,
+      "channels": [
+        "email",
+        "slack"
+      ],
+      "rules": [
+        {
+          "name": "High Error Rate",
+          "condition": "error_rate > 5%",
+          "severity": "critical",
+          "duration": "5m"
+        },
+        {
+          "name": "High Response Time",
+          "condition": "p95_response_time > 1000ms",
+          "severity": "warning",
+          "duration": "10m"
+        },
+        {
+          "name": "High CPU Usage",
+          "condition": "cpu_usage > 80%",
+          "severity": "warning",
+          "duration": "15m"
+        },
+        {
+          "name": "High Memory Usage",
+          "condition": "memory_usage > 85%",
+          "severity": "warning",
+          "duration": "10m"
+        },
+        {
+          "name": "Database Connection Pool Exhausted",
+          "condition": "db_connections > 90% max_connections",
+          "severity": "critical",
+          "duration": "5m"
+        },
+        {
+          "name": "Service Down",
+          "condition": "up == 0",
+          "severity": "critical",
+          "duration": "1m"
+        }
+      ]
+    },
+    "logging": {
+      "level": "info",
+      "retention_days": 90,
+      "structured": true
+    }
+  },
+  "scaling": {
+    "enabled": true,
+    "backend": {
+      "min_instances": 3,
+      "max_instances": 10,
+      "target_cpu_utilization": 70,
+      "target_memory_utilization": 80,
+      "scale_up_cooldown": 300,
+      "scale_down_cooldown": 600,
+      "policies": [
+        {
+          "name": "cpu_scaling",
+          "metric": "cpu_utilization",
+          "target": 70,
+          "scale_up_adjustment": "+50%",
+          "scale_down_adjustment": "-25%"
+        },
+        {
+          "name": "request_count_scaling",
+          "metric": "request_count_per_target",
+          "target": 1000,
+          "scale_up_adjustment": "+1 instance",
+          "scale_down_adjustment": "-1 instance"
+        }
+      ]
+    }
+  }
+}
