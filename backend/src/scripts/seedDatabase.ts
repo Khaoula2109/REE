@@ -14,8 +14,15 @@ const seedDatabase = async () => {
   try {
     console.log('🌱 Starting database seeding...');
 
+    // Disable foreign key checks to allow dropping tables
+    await sequelize.query('SET FOREIGN_KEY_CHECKS = 0');
+
     // Sync database (reset all tables)
     await sequelize.sync({ force: true });
+
+    // Re-enable foreign key checks
+    await sequelize.query('SET FOREIGN_KEY_CHECKS = 1');
+
     console.log('✅ Database tables created');
 
     // Create Users
